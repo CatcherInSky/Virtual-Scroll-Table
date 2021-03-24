@@ -1,2 +1,3 @@
-# VirtualScrollTable
-Vue 3.0 开发的虚拟滚动列表
+# Virtual-Scroll-Table
+Vue 3.0 开发的移动端虚拟滚动列表
+
