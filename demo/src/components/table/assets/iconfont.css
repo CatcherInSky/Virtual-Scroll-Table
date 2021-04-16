@@ -1,0 +1,33 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1618565473209'); /* IE9 */
+  src: url('iconfont.eot?t=1618565473209#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOEAAsAAAAAB/gAAAM1AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqCVII1ATYCJAMUCwwABCAFhG0HgQkbAgfInpo8QWCzFiwKxWUKcBhNEVT7vfXs7oMkh6wAZeoUoAe2ROrbI1bEGkgYIndCsgsY8f5vv/YXMR9UkyRRnX3vPnFmZ8EjNDZDMkk0+GbJmkq09M/X4UUZVkpJQNnSLJEzjOSt9yiJ7u+vxrtbAYfns2+BrVLHedh5ju9GCxg1ATVZdlw3BRRogSWqDWMXtMTDBPrNU8ZnY1vPCAQrzFGBOK7KFIIzdqWhMrRCXbGwiBsCtOla+glcD74fo2qiJaky86jNB1tFaBi68/eMDjCTr9udzgu2jIzlQCF6lf7j/KLkcn761e7+1gL9Wkmaqt3HPw997zqRqA9k7Lf+8AhJVoiaWT4GrEWpwtAdBxEMPUAkhh4hMkPPlB/mmAr0o8Fu4CJiz/eFZPFmResE/0knRt7+3P76/Y43b3a9e7crLJJI3J8733761R8nYk4vUwIfPM+L3gc+zeNX6qExcWykouFoPTGIvc2kqFhx9GtTvyLGpXbf8lB/8OB23da/MXkn8+pNXC+9/T/puvCG1L2uVy1v5O172hNxTw743T7rdbogb9M53mRIDjqc/rxZ/6bGxoMDj67OM+Ckm3RVmzz50atlsAJ07A77y9c7qEVAelb5p07z9PnOzfmolf/bsAJ+7bMHqobbwes26Kz4L82KjqBwlWmvimLt6HC+XAlWZk2gT2pdP/5GeJKv0wSngsQbWq6AkDTmQtaajxX2cqgMGIRaaw30W6Z9+YDJGD9R+rDUFoAwwRUk43yCbIJXWGF/gco0f6E2ITL02xmTNxywMI6EbmBIOYrEtUpUwbYk28VDw8ohlD0GZWlVwBtD5lYjpNoin2lHC9kUU9xLcg3nEpGYbZI2cBwahk0cZmso8AqFc6e+0rPqRRWCbUKoDRhEcUhEuKwiVAKbRfJqc6GFzw9BMg8DxRooVfExiHFTWyeqVajqgLXrrU6UW3nGbYmsBsdJCAljMxFtwIsMK2kjnOp+GiTgKigD4o56lYhJ6qqvWN5ovkAZq8K8oooUOUpUURtzVKVrVC0vLw9VY1N9LEGhix5kaOVJkvNdBrX08hXKQEq7qJaIHJmpWo8nH2QDAAAA') format('woff2'),
+  url('iconfont.woff?t=1618565473209') format('woff'),
+  url('iconfont.ttf?t=1618565473209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1618565473209#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-loading:before {
+  content: "\e8ba";
+}
+
+.icon-checkbox-full:before {
+  content: "\e8be";
+}
+
+.icon-checkbox-empty:before {
+  content: "\e8c0";
+}
+
+.icon-checkbox-half:before {
+  content: "\e8c4";
+}
+

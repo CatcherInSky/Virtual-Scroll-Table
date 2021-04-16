@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12990758",
+      "name": "加载-4-块",
+      "font_class": "jiazai--kuai",
+      "unicode": "e8ba",
+      "unicode_decimal": 59578
+    },
+    {
+      "icon_id": "12990763",
+      "name": "检查:确认-块 2",
+      "font_class": "jianchaqueren-kuai",
+      "unicode": "e8be",
+      "unicode_decimal": 59582
+    },
+    {
+      "icon_id": "12990768",
+      "name": "检查:确认-blank-线",
+      "font_class": "jianchaqueren-blank-xian",
+      "unicode": "e8c0",
+      "unicode_decimal": 59584
+    },
+    {
+      "icon_id": "12990775",
+      "name": "检查:确认-indeterminate-块",
+      "font_class": "jianchaqueren-indeterminate-kuai",
+      "unicode": "e8c4",
+      "unicode_decimal": 59588
+    }
+  ]
+}
