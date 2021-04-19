@@ -1,34 +1,43 @@
 <template>
-  <div :class="bem('margin')" v-show="check"/>
-  <div :class="[bem(), (navigator && !fullScreen) ? bem('bottom-up') : bem('bottom-down')]" v-show="check">
+  <div :style="`margin-top: ${placeholderHeight}`"/>
+  <div
+    ref="menu"
+    class="virtual-menu"
+    :style="`bottom: ${bottomHeight}`">
     <slot />
   </div>
 </template>
 <script>
-import { computed, inject } from 'vue';
-import { useStore } from 'vuex';
-import { createBEM } from '@/utils/bem.js';
+import { onMounted, ref } from 'vue';
+/**
+ * @props bottomHeight 
+ * 
+ */
 export default {
   name: 'VirtualMenu',
+  props: {
+    bottomHeight: {
+      type: Number,
+      default: 0,
+    },
+  },
   setup() {
-    const store = useStore();
-    const navigator = computed(() => store.state.common.navigator);
-    const check = computed(() => store.state.common.check);
-
+    const menu = ref(null);
+    const placeholderHeight = ref(0);
+    onMounted(() => {
+      menu.value && menu.value && (placeholderHeight.value = menu.value.getBoundingClientRect().height)
+    });
     return {
-      bem: createBEM('virtual-menu'),
-      navigator,
-      check,
-      fullScreen: inject('fullScreen'),
+      menu,
+      placeholderHeight,
     };
   }
 };
 </script>
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
-@import "@/styles/mixins/text.scss";
 .virtual-menu {
- @include descriptive-text;
+  font-size: 14px;
+  line-height: 20px;
   position: fixed;
   display: flex;
   flex-flow: row nowrap;
@@ -36,18 +45,8 @@ export default {
   align-items: center;
   background-color: white;
   width: 100%;
-  height: $button-large-height;
-  color: $blue;
+  color: #1989fa;
   z-index: 10;
   transition: all 0.3s ease;
-  &__bottom-up {
-    bottom: $nav-bar-height;
-  }
-  &__bottom-down {
-    bottom: 0;
-  }
-  &__margin {
-    margin-top: $button-large-height;
-  }
 }
 </style>

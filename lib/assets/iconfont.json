@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "12990758",
+      "name": "加载-4-块",
+      "font_class": "jiazai--kuai",
+      "unicode": "e8ba",
+      "unicode_decimal": 59578
+    },
+    {
       "icon_id": "12990763",
       "name": "检查:确认-块 2",
       "font_class": "jianchaqueren-kuai",
