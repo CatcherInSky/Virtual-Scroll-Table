@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { throttle } from './tool';
 /**
  * 虚拟滚动钩子
@@ -30,7 +30,10 @@ export class VirtualScroll {
     // scrollTop = document.scrollTop - domScrollTop
     this.scrollTop = ref(0);
     // 初始化
-    this.init();
+    setTimeout(() => {
+      this.init()
+    }, 0)
+    // this.init();
     // 初始化start/end -> padding/fragment
     watch(this.data, (data) => {
       const {end, start, show, length} = this;
@@ -45,12 +48,12 @@ export class VirtualScroll {
         ? Math.floor(newTop / height.value)
         : 0;
       if(newTop < oldTop) {
-        // 向上
+        // console.log('向上')
         if(index <= start.value) {
           start.value = Math.max(index - buffer.value, 0);
         }
       } else {
-        // 向下
+        // console.log('向下')
         if(index >= start.value + buffer.value) {
           start.value = Math.max(index, 0);
         }

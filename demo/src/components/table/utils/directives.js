@@ -58,3 +58,88 @@ export const press = {
     el.removeEventListener('touchcancel', cancel);
   },
 };
+
+/**
+ * @directives sticky
+ * https://github.com/iqingting/vue-sticky/blob/master/src/index.js
+ * 
+ */
+const stickyScope = {
+  supportSticky: false,
+  initZIndex: 0,
+  handler: undefined,
+}
+export const sticky = {
+  mounted(el, { value: {stickyTop = 0, zIndex = 1000, disabled = false}}) {
+      const { style } = el;
+      stickyScope.initZIndex = style.zIndex;
+      if(disabled) {
+        return;
+      }
+      style.position = '-webkit-sticky';
+      style.position = 'sticky';
+      // const supportSticky = ~ style.position.indexOf('sticky');
+      // stickyScope.supportSticky = supportSticky;
+      // if(supportSticky) {
+      //   style.top = `${stickyTop}px`;
+      //   style.zIndex = zIndex;
+      // } else {
+        style.position = ''
+        style.cssText = `left: 0; right: 0; top: ${stickyTop}px; z-index: ${zIndex}; ${style.cssText}`
+      // }
+  
+      let active = false;
+      
+      stickyScope.handler = () => {
+        console.log('scroll')
+        const offsetTop = el.getBoundingClientRect().top;
+        console.log(stickyTop, offsetTop);
+        if(offsetTop <= stickyTop) {
+          if(stickyScope.supportSticky || active) {
+            return;
+          }
+          if(style.height) {
+            style.height = `${stickyTop}px`;
+            style.position = 'fixed'
+          }
+          active = true;
+        } else {
+          if(stickyScope.supportSticky || !active) {
+            return;
+          }
+          style.position = 'static';
+          active = false;
+        }
+      }
+      window.addEventListener('scroll', stickyScope.handler)
+
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', stickyScope.handler)
+  },
+  updated(el, { value: {stickyTop = 0, zIndex = 1000, disabled = false}}) {
+      const { style } = el;
+      const { supportSticky, initZIndex, handler } = stickyScope;
+  
+      // if(supportSticky) {
+      //   style.top = `${stickyTop}px`
+      //   style.zIndex = zIndex;
+      // }
+      if(disabled) {
+        // if(supportSticky) {
+        //   style.position = '';
+        //   style.zIndex = initZIndex;
+        // } else {
+          window.removeEventListener('scroll', handler)
+        // }
+        return;
+      }
+  
+      // if(supportSticky) {
+      //   style.position = '-webkit-sticky';
+      //   style.position = 'sticky';
+      // } else {
+        window.addEventListener('scroll', handler)
+      // }
+  },
+}

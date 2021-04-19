@@ -6,7 +6,7 @@
       fixed && 'virtual-column-fixed', 
       columnIndex === position.column && 'virtual-colomn-selected',
     ]" 
-    :style="`width: ${width}px; text-align: ${align}`"
+    :style="`width: ${width}px; text-align: ${align}; left: ${stickyLeft}px`"
     @click="getPosition"
   >
     <virtual-cell 
@@ -14,7 +14,7 @@
         'virtual-column-header',
         headerClass,
       ]" 
-      :style="`height: ${height}px;`"
+      :style="`height: ${height}px; top: 0px`"
       @click="sortChange"
     >
       <slot name="header" :column="column">
@@ -42,14 +42,18 @@
   </div>
 </template>
 <script>
-import { inject, computed, ref, toRefs } from 'vue';
+import { inject, computed, ref, toRefs, onMounted } from 'vue';
 import { getDomPath, getValueByPath } from './utils/tool.js';
+// import { sticky } from './utils/directives.js';
 import VirtualCell from './VirtualCell.vue';
 export default {
   name: 'VirtualColumn',
   components: {
     VirtualCell,
   },
+  // directives: {
+  //   sticky,
+  // },
   props: {
     // 列类型，可选[checkbox, default]
     type: {
@@ -128,9 +132,18 @@ export default {
       const order = !sort.value || sort.value.path != path.value || sort.value.order == 'ascend' 
         ? 'descend'
         : 'ascend';
-      updateSort({ path: path.value, order })
+      updateSort({ path: path.value, order });
     }
 
+    // 固定列
+    const stickyLeft = ref(0);
+    onMounted(() => {
+      props.fixed && (
+        stickyLeft.value = column.value 
+        ? column.value.offsetLeft 
+        : 0
+      );
+    });
     return {
       column,
       columnIndex,
@@ -146,6 +159,8 @@ export default {
       sortChange,
 
       getValueByPath,
+
+      stickyLeft,
     };
   }
 };
@@ -158,19 +173,20 @@ export default {
   position: relative;
   cursor: pointer;
   &-header {
+    box-shadow: 0 -1px #fff;
     z-index: 1;
     width: 100%;
-    position: sticky;
-    top: 0;
     border-bottom: solid 1px #ebedf0;
     background: #f3f3f5;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
   &-body {
     border-bottom: solid 1px #ebedf0;
   }
   &-fixed {
     position: sticky;
-    left: 0;
     z-index: 2;
   }
   &-selected {

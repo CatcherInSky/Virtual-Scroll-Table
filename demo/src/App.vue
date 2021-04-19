@@ -1,6 +1,8 @@
 <template>
+  <span style="margin: 39px" />
   <virtual-table
     :data="data"
+    :show="60"
     :loading="loading"
     @sort="sortChange"
     @checkbox="checkboxChange"
@@ -16,6 +18,7 @@
     <virtual-column
       type="checkbox"
       align="center"
+      fixed
     />
     <virtual-column fixed align="left">
       <template #header>名字</template>
@@ -23,11 +26,16 @@
     </virtual-column>
     <virtual-column align="center" title="id" path="_id" sortable/>
     <virtual-column align="center" title="年龄2" path="age" sortable/>
-    <virtual-column align="center" sortable>
+    <!-- <virtual-column align="center" sortable>
       <template #header>年龄</template>
       <template #body="{row}">{{ row.age }}</template>
-    </virtual-column>
+    </virtual-column> -->
+    <virtual-column align="center" title="年龄2" path="age" sortable/>
+    <!-- <virtual-column align="center" title="年龄2" path="age" sortable/>
+    <virtual-column align="center" title="年龄2" path="age" sortable/> -->
+    <!-- <virtual-column align="center" title="年龄2" path="age" sortable/> -->
   </virtual-table>
+  <div style="margin: 39px" />
 </template>
 
 <script>

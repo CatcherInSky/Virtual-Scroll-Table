@@ -12,7 +12,6 @@ Vue 3.0 开发的移动端虚拟滚动列表
 | loading-text | String | false | 等待中提示语 | '加载中' |
 | empty-text | String | false | 无数据提示语 | '暂无数据' |
 
-
 ## Table events
 | event | arguments | description |
 |:---:|:---:|:---:|:---:|:---:|
@@ -38,4 +37,4 @@ Vue 3.0 开发的移动端虚拟滚动列表
 | column.header | { column } | 列表头 |
 | column.body | { row, index, id } | 列表内容 |
 | tooltip | { row } | 选中单条 |
-| menu | { rows } | 选中多条 |
+<!-- | menu | { rows } | 选中多条 | -->

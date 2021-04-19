@@ -1,49 +1,50 @@
 
 <template>
-  <div 
-    v-if="!loading && data && data.length"
-    v-press="{ handler: pressing }"
-    ref="table"
-    class="virtual-table" 
-    :style="`padding: ${padding.top}px 0 ${padding.bottom}px`"
-
-  >
-    <slot />
+  <div class="virtual-container">
+    <div 
+      v-if="!loading && data && data.length"
+      v-press="{ handler: pressing }"
+      ref="table"
+      class="virtual-table" 
+      :style="`padding: ${padding.top}px 0 ${padding.bottom}px`"
+    >
+      <slot />
+    </div>
+    <div
+      v-else-if="loading"
+      :class="[
+        'virtual-table-else',
+        'virtual-table-loading'
+      ]" 
+    >
+      <span :class="[
+        'iconfont',
+        'icon-loading',
+        'virtual-table-loading-icon'
+      ]" />
+      {{ loadingText }}
+    </div>
+    <div 
+      v-else
+      :class="[
+        'virtual-table-else',
+        'virtual-table-empty'
+      ]" 
+    >
+      {{ emptyText }}
+    </div>
+    <virtual-tooltip 
+      v-model:show="showTooltip" 
+      :horizontal="horizontal"
+      :vertical="vertical"
+      :container="container"
+    >
+      <slot name="tooltip" :row="selected_row"/>
+    </virtual-tooltip>
+    <virtual-menu v-if="menu && selected_rows.length" :bottomHeight="0">
+      <slot name="menu" :rows="selected_rows"/>
+    </virtual-menu>
   </div>
-  <div
-    v-else-if="loading"
-    :class="[
-      'virtual-table-else',
-      'virtual-table-loading'
-    ]" 
-  >
-    <span :class="[
-      'iconfont',
-      'icon-loading',
-      'virtual-table-loading-icon'
-    ]" />
-    {{ loadingText }}
-  </div>
-  <div 
-    v-else
-    :class="[
-      'virtual-table-else',
-      'virtual-table-empty'
-    ]" 
-  >
-    {{ emptyText }}
-  </div>
-  <virtual-tooltip 
-    v-model:show="showTooltip" 
-    :horizontal="horizontal"
-    :vertical="vertical"
-    :container="container"
-  >
-    <slot name="tooltip" :row="selected_row"/>
-  </virtual-tooltip>
-  <virtual-menu v-if="menu && selected_rows.length" :bottomHeight="0">
-    <slot name="menu" :rows="selected_rows"/>
-  </virtual-menu>
 </template>
 <script>
 import { ref, toRefs, onMounted, provide, reactive, readonly, computed, watch, onBeforeUnmount } from 'vue';
@@ -118,8 +119,9 @@ export default {
     provide('width', readonly(colWidth));
     const getColWidth = () => {
       try {
-        const slots =  context.slots.default();
-        const col = slots[slots.length - 1].children.length || (slots.length - 1) + 1;
+        const slots = context.slots.default();
+        // const col = slots[slots.length - 1].children.length || (slots.length - 1) + 1;
+        const col = slots.length;
         const clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
         colWidth.value =  Math.max(clientWidth / col, width.value) || width.value;
       } catch (e) {
@@ -246,13 +248,21 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import './assets/iconfont.css';
+// body,
+// #app,
+// .virtual-container {
+//   display: table !important;
+// }
 .virtual-table {
-  display: flex;
-  overflow-x: scroll;
+  // display: flex;
+  // 宽度由子元素总宽度决定
+  display: inline-flex;
+  // overflow-x: scroll;
   backface-visibility: hidden;
-  width: 100%;
+  // width: 100%;
+  // position: relative;
   &-else {
     display: flex;
     justify-content: center;
