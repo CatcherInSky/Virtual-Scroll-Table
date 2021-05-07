@@ -6,15 +6,22 @@
       fixed && 'virtual-column-fixed', 
       columnIndex === position.column && 'virtual-colomn-selected',
     ]" 
-    :style="`width: ${width}px; text-align: ${align}; left: ${stickyLeft}px`"
+    :style="`width: ${width}px; text-align: ${align}; left: ${stickyLeft}px;`"
     @click="getPosition"
   >
+    <!-- absolute 占位 -->
+    <virtual-cell v-if="headerTop > 0" :style="`height: ${height}px;`"/>
     <virtual-cell 
       :class="[
         'virtual-column-header',
         headerClass,
       ]" 
-      :style="`height: ${height}px; top: 0px`"
+      :style="`
+        height: ${height}px; 
+        top: ${headerSticky ? 0 : headerTop}px; 
+        position: ${headerSticky ? 'sticky' : (headerTop > 0 ? 'absolute' : 'static')}; 
+        opacity: ${headerShow ? 0 : 1}
+      `"
       @click="sortChange"
     >
       <slot name="header" :column="column">
@@ -44,16 +51,16 @@
 <script>
 import { inject, computed, ref, toRefs, onMounted } from 'vue';
 import { getDomPath, getValueByPath } from './utils/tool.js';
-// import { sticky } from './utils/directives.js';
+import { sticky } from './utils/directives.js';
 import VirtualCell from './VirtualCell.vue';
 export default {
   name: 'VirtualColumn',
   components: {
     VirtualCell,
   },
-  // directives: {
-  //   sticky,
-  // },
+  directives: {
+    sticky,
+  },
   props: {
     // 列类型，可选[checkbox, default]
     type: {
@@ -120,6 +127,9 @@ export default {
     const data = inject('fragment');
     const width = inject('width');
     const height = inject('height');
+    const headerTop = inject('headerTop');
+    const headerShow = inject('headerShow');
+    const headerSticky = inject('headerSticky');
 
     // 排序相关
     const { sortable, path } = toRefs(props);
@@ -154,6 +164,9 @@ export default {
       data,
       width,
       height,
+      headerTop,
+      headerShow,
+      headerSticky,
       
       sort,
       sortChange,
@@ -178,9 +191,9 @@ export default {
     width: 100%;
     border-bottom: solid 1px #ebedf0;
     background: #f3f3f5;
-    position: sticky;
-    top: 0;
+    position: absolute;
     z-index: 1;
+    transition: opacity 0.2s linear;
   }
   &-body {
     border-bottom: solid 1px #ebedf0;

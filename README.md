@@ -1,6 +1,8 @@
 # Virtual-Scroll-Table
 Vue 3.0 开发的移动端虚拟滚动列表
 
+用法参考demo/App.vue
+
 ## Table props
 | props | type | required | description | default |
 |:---:|:---:|:---:|:---:|:---:|
@@ -11,6 +13,8 @@ Vue 3.0 开发的移动端虚拟滚动列表
 | loading | Boolean | false | 等待状态 | false |
 | loading-text | String | false | 等待中提示语 | '加载中' |
 | empty-text | String | false | 无数据提示语 | '暂无数据' |
+| fixed-header | Boolean | false | 固定表头，非响应式 | true |
+| table-height | Number | false | 表格最大高度，不规定则为数据长度，非响应式 |  |
 
 ## Table events
 | event | arguments | description |
@@ -38,3 +42,13 @@ Vue 3.0 开发的移动端虚拟滚动列表
 | column.body | { row, index, id } | 列表内容 |
 | tooltip | { row } | 选中单条 |
 <!-- | menu | { rows } | 选中多条 | -->
+
+## 表头固定方案
+
+fixed 左右滚动会裂开
+
+sticky 最近滚动先祖元素为列，不是浏览器可视区域
+  将table改为固定高度，core计算基准需要改动
+
+absolute/relative + top 抖动
+  滚动时隐藏，滚动结束出现

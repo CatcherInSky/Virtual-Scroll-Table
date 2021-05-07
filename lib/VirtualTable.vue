@@ -1,6 +1,6 @@
 
 <template>
-  <div class="virtual-container">
+  <div ref="background" class="virtual-container" :style="tableHeight && `max-height: ${tableHeight}px`">
     <div 
       v-if="!loading && data && data.length"
       v-press="{ handler: pressing }"
@@ -64,6 +64,13 @@ export default {
       type: Number, 
       default: 30,
     },
+    tableHeight: {
+      type: Number,
+    },
+    fixedHeader: {
+      type: Boolean,
+      default: true,
+    },
     height: {
       type: Number,
       default: 40,
@@ -107,7 +114,7 @@ export default {
       });
     });
 
-    const { data, show, height, width } = toRefs(props);
+    const { data, show, height, width, tableHeight, fixedHeader } = toRefs(props);
     // 给每行数据打上标志符_id
     watch(data, data => {
       data && data.forEach((item, index) => item._id = index);
@@ -169,10 +176,14 @@ export default {
     });
 
     // 虚拟滚动计算
-    const core = new VirtualScroll(sortedData, show, height, table);
+    const core = new VirtualScroll(sortedData, show, height, table, tableHeight);
+
     const padding = core.padding;
     provide('data', sortedData);
     provide('fragment', core.fragment);
+    provide('headerTop', fixedHeader.value ? readonly(core.headerTop) : 0);
+    provide('headerShow', fixedHeader.value ? readonly(core.headerShow) : false);
+    provide('headerSticky', Boolean(tableHeight && tableHeight.value > 0));
     onBeforeUnmount(() => core.destroy());
 
     // 全局记录高亮行列
@@ -252,9 +263,15 @@ export default {
 @import './assets/iconfont.css';
 // body,
 // #app,
-// .virtual-container {
-//   display: table !important;
-// }
+.virtual-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  // overflow: scroll;
+  // max-height: 100vh;
+  max-width: 100vw;
+  // display: table !important;
+}
 .virtual-table {
   // display: flex;
   // 宽度由子元素总宽度决定

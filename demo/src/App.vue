@@ -31,8 +31,8 @@
       <template #body="{row}">{{ row.age }}</template>
     </virtual-column> -->
     <virtual-column align="center" title="年龄2" path="age" sortable/>
-    <!-- <virtual-column align="center" title="年龄2" path="age" sortable/>
-    <virtual-column align="center" title="年龄2" path="age" sortable/> -->
+    <virtual-column align="center" title="年龄2" path="age" sortable/>
+    <virtual-column align="center" title="年龄2" path="age" sortable/>
     <!-- <virtual-column align="center" title="年龄2" path="age" sortable/> -->
   </virtual-table>
   <div style="margin: 39px" />
