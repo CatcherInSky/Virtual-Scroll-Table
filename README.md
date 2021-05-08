@@ -48,7 +48,9 @@ Vue 3.0 开发的移动端虚拟滚动列表
 fixed 左右滚动会裂开
 
 sticky 最近滚动先祖元素为列，不是浏览器可视区域
+
 -将table改为固定高度，core计算基准需要改动
 
 absolute/relative + top 抖动
+
 -滚动时隐藏，滚动结束出现
