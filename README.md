@@ -54,3 +54,7 @@ sticky 最近滚动先祖元素为列，不是浏览器可视区域
 absolute/relative + top 抖动
 
 -滚动时隐藏，滚动结束出现
+
+  
+ 参考
+ https://github.com/tangbc/vue-virtual-scroll-list
